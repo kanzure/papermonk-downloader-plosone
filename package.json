@@ -1,0 +1,51 @@
+{
+  "name": "papermonk-downloader-plosone",
+  "description": "plosone.org scraper",
+  "version": "0.0.1",
+  "readmeFilename": "README.md",
+  "homepage": "https://github.com/kanzure/papermonk-downloader-plosone",
+  "author": {
+    "name": "Bryan Bishop",
+    "email": "kanzure@gmail.com",
+    "url": "http://heybryan.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kanzure/papermonk-downloader-plosone"
+  },
+  "bugs": {
+    "url": "https://github.com/kanzure/papermonk-downloader-plosone/issues",
+    "email": "kanzure@gmail.com"
+  },
+  "license": "BSD",
+  "keywords": [
+    "papermonk",
+    "plos",
+    "plos one",
+    "plosone.org",
+    "public library of science",
+    "papers",
+    "pdf",
+    "pdfs",
+    "academic articles",
+    "academic papers",
+    "scholarly articles",
+    "scholarly papers",
+    "journals",
+    "scraping",
+    "spidering",
+    "crawling"
+  ],
+  "engines": {
+    "node": ">0"
+  },
+  "devDependencies": {
+  },
+  "dependencies": {
+    "url-parser": "*",
+    "tape": ">0"
+  },
+  "optionalDependencies": {
+  },
+  "main": "./index.js"
+}
