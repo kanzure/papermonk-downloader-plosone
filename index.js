@@ -1,4 +1,4 @@
-urlparser = require("url-parser");
+var urlparser = require("url-parser");
 
 module.exports.test = function test(url) {
     parsedurl = urlparser.parse(url);
