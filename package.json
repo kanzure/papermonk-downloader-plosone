@@ -42,7 +42,7 @@
   "devDependencies": {
   },
   "dependencies": {
-    "url-parser": "*",
+    "url-parser": ">0",
     "tape": ">0"
   },
   "optionalDependencies": {
