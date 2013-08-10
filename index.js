@@ -1,4 +1,6 @@
 var urlparser = require("url-parser");
+var request = require("request");
+var jsdom = require("jsdom");
 
 module.exports.test = function test(url) {
     parsedurl = urlparser.parse(url);
@@ -18,8 +20,23 @@ module.exports.test = function test(url) {
     return false;
 };
 
-// TODO: this should be split into multiple methods
 module.exports.download = function download(url, options, callback) {
-    // TODO: this needs to be implemented
-    throw new Error("not implemented");
+    request.get(url, function requestcallback(error, response, body) {
+        var metadata = null;
+
+        if (!error && response.statusCode == 200) {
+            var window = jsdom.jsdom(body).createWindow();
+            var title = window.document.getElementsByTagName("title")[0].innerHTML;
+
+            metadata = {
+                "html": {
+                    "title": title,
+                },
+            };
+        }
+
+        callback(error, metadata);
+    });
+
+    return undefined;
 };
