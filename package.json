@@ -42,7 +42,7 @@
   "devDependencies": {
   },
   "dependencies": {
-    "url-parser": ">0",
+    "url-parser": "0.0.1",
     "request": "~2.26.0",
     "cheerio": "~0.12.1",
     "nock": ">0.22.0",
