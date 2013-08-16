@@ -66,6 +66,9 @@ module.exports.download = function download(url, options, callback) {
                     },
                 ],
             };
+
+            // otherwise node will hang
+            window.close();
         }
 
         callback(error, metadata);
