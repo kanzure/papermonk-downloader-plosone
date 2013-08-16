@@ -1,6 +1,8 @@
 var nock = require("nock");
 var test = require("tape");
 
+var cheerio = require("cheerio");
+
 test("require against the module", function(t) {
     var downloader = require("./");
 
@@ -73,4 +75,20 @@ test("extracts the correct html title", function(t) {
         t.ok(scope.isDone(), "nock scope is done");
         t.end();
     });
+});
+
+test("parse title text correctly", function(t) {
+    var parse = require("./src/parse.js");
+    var expected_title = "hello world";
+    var $ = cheerio.load("<title>" + expected_title + "</title>");
+    t.equal(expected_title, parse.parseTitle($));
+    t.end();
+});
+
+test("parse citation_pdf_url correctly", function(t) {
+    var parse = require("./src/parse.js");
+    var expected_pdf_url = "http://example.com/example.pdf";
+    var $ = cheerio.load('<meta name="citation_pdf_url" content="' + expected_pdf_url + '" />');
+    t.equal(expected_pdf_url, parse.parsePdfUrl($));
+    t.end();
 });
