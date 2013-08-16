@@ -1,21 +1,6 @@
 var request = require("request");
 var cheerio = require("cheerio");
 
-function makepipe(url) {
-    return function download(writestream) {
-        return request.get(url).pipe(writestream);
-    };
-};
-
-function parseTitle($) {
-    return $("title").text();
-};
-
-function parsePdfUrl($) {
-    // http://dx.plos.org/10.1371/journal.pone.0071334.pdf
-    return $("meta[name='citation_pdf_url']").attr("content");
-};
-
 module.exports = function parse(body) {
     var metadata = {};
 
@@ -47,4 +32,19 @@ module.exports = function parse(body) {
     };
 
     return metadata;
+};
+
+var makepipe = module.exports.makepipe = function makepipe(url) {
+    return function download(writestream) {
+        return request.get(url).pipe(writestream);
+    };
+};
+
+var parseTitle = module.exports.parseTitle = function parseTitle($) {
+    return $("title").text();
+};
+
+var parsePdfUrl = module.exports.parsePdfUrl = function parsePdfUrl($) {
+    // http://dx.plos.org/10.1371/journal.pone.0071334.pdf
+    return $("meta[name='citation_pdf_url']").attr("content");
 };
