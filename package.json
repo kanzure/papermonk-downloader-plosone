@@ -1,7 +1,7 @@
 {
   "name": "papermonk-downloader-plosone",
   "description": "plosone.org scraper",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "readmeFilename": "README.md",
   "homepage": "https://github.com/kanzure/papermonk-downloader-plosone",
   "author": {
