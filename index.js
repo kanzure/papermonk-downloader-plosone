@@ -1,7 +1,10 @@
 var urlparser = require("url-parser");
-var hyperquest = require("hyperquest");
+var through = require("through");
 var concat = require("concat-stream");
-var parse = require("./src/parse.js");
+var hyperquest = require("hyperquest");
+var trumpet = require("trumpet");
+
+var parser = require("./src/parser.js");
 
 module.exports.test = function test(url) {
     parsedurl = urlparser.parse(url);
@@ -21,16 +24,20 @@ module.exports.test = function test(url) {
     return false;
 };
 
-module.exports.download = function download(url, options, callback) {
+module.exports.download = function download(url, options) {
+    var output = through();
+
     var request = hyperquest.get(url);
 
-    request.pipe(concat(function(body) {
-        var metadata = parse(body);
-        callback(null, metadata, body);
-    }));
-
-    //request.on("response", function(response){});
-    request.on("error", function(error) {
-        callback(error, null, null);
+    request.on("response", function (response) {
+        output.emit("response", response);
     });
+
+    request.on("error", function (error) {
+        output.emit("error", error);
+    });
+
+    request.pipe(parser(output));
+
+    return output;
 };
