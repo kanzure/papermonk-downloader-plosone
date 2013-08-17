@@ -1,5 +1,6 @@
 var urlparser = require("url-parser");
-var request = require("request");
+var hyperquest = require("hyperquest");
+var concat = require("concat-stream");
 var parse = require("./src/parse.js");
 
 module.exports.test = function test(url) {
@@ -21,13 +22,15 @@ module.exports.test = function test(url) {
 };
 
 module.exports.download = function download(url, options, callback) {
-    return request.get(url, function requestcallback(error, response, body) {
-        var metadata = null;
+    var request = hyperquest.get(url);
 
-        if (!error && response.statusCode == 200) {
-            metadata = parse(body);
-        }
+    request.pipe(concat(function(body) {
+        var metadata = parse(body);
+        callback(null, metadata, body);
+    }));
 
-        callback(error, metadata);
+    //request.on("response", function(response){});
+    request.on("error", function(error) {
+        callback(error, null, null);
     });
 };

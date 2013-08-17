@@ -70,7 +70,7 @@ test("extracts the correct html title", function(t) {
                 .replyWithFile(200, filepath);
 
     // make sure the title is extracted correctly
-    downloader.download("http://example.com/paper", {}, function(error, metadata) {
+    downloader.download("http://example.com/paper", {}, function(error, metadata, body) {
         t.equal(expected_title, metadata.html.title, "title matches expectations");
         t.ok(scope.isDone(), "nock scope is done");
         t.end();

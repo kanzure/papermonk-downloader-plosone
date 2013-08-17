@@ -1,4 +1,4 @@
-var request = require("request");
+var hyperquest = require("hyperquest");
 var cheerio = require("cheerio");
 
 module.exports = function parse(body) {
@@ -35,8 +35,8 @@ module.exports = function parse(body) {
 };
 
 var makepipe = module.exports.makepipe = function makepipe(url) {
-    return function download(writestream) {
-        return request.get(url).pipe(writestream);
+    return function download(stream) {
+        return hyperquest.get(url).pipe(stream);
     };
 };
 
